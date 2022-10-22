@@ -15,8 +15,9 @@ foreach($arrayAso as $nombre=>$edad)
 	echo "El alumn@ " . $nombre . " tiene " . $edad . " años ";
 	echo "<br>";
 	}
+	
 //Monstramos segunda posición del array
-
+/*
 echo "La segunda posición del array es " . $arrayAso[1];
 
 //Mostramos tercera posición del array
@@ -26,20 +27,28 @@ echo "La tercera posición del array es " . $arrayAso[2];
 //Mostramos última posición del array
 
 echo "La tercera posición del array es " . end($arrayAso);
-
+*/
 //Ordenar por menor a mayor la edad y mostrar primera y última posición
-
-asort($edad);
-foreach($edad as $i => $nombre){
-	"Orden=" .$i . " ,nombre=" . $nombre;
-
-}
-
-$array1=arrayOr($edad,20);
-print_r($array1);
-
-$array2=arrayInv($edad,40);
-print_r($array2);
+echo "<br>";
+echo "La primera posición es " .reset($arrayAso);
+echo "<br>";
+echo "La siguiente posición es " .next($arrayAso);
+echo "<br>";
+echo "La última posición es " .end($arrayAso);
+echo "<br>";
+echo "<br>";
+asort($arrayAso);
+foreach($arrayAso as $nombre=>$edad)
+	{
+	echo "El alumn@ " . $nombre . " tiene " . $edad . " años ";
+	echo "<br>";
+	}
+	echo "<br>";
+echo "La primera posición es " .reset($arrayAso);
+echo "<br>";
+echo "La siguiente posición es " .next($arrayAso);
+echo "<br>";
+echo "La última posición es " .end($arrayAso);
 
 ?>		  
 </BODY>
