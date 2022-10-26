@@ -23,7 +23,7 @@ function test_input($operando1) {
   $operando1 = htmlspecialchars($operando1);
   return $operando1;
 }
-
+//pasamos a binario el argumento pasado mediante decbin()
 function binario($a) {
     return decbin($a);
 }
