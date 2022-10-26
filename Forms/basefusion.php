@@ -22,10 +22,12 @@
 <br>
 </FORM>
 <?php
+//Limpiamos $operando1 para que no de fallos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $operando1 = test_input($_POST["operando1"]);
   $operacion = $_POST['operador'];
-    
+  
+//Según sea una unidad u otra hacemos distintas operaciones
   if($operacion == "binario"){
       $solucion = decbin($operando1);
       echo "La solución es: ".$solucion;
@@ -47,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo "<br>";
   }
   }
-   
+
+//Filtramos datos sin espacios, barras o carácteres especiales
 function test_input($operando1) {
   $operando1 = trim($operando1);
   $operando1 = stripslashes($operando1);
