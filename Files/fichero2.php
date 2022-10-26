@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $localidad = test_input($_POST["localidad"]);
 
 
-
+//Dividimos el tamaño de los argumentos acompañados de # mediante str_pad, además de indicar que si no se ejecuta la función no se crea el fichero
 $fichero = fopen ("alumnos2.txt","a") or die ("Fichero no creado");
 fwrite($fichero,str_pad($nombre,39,"#"));
 fwrite($fichero,str_pad($apellido1,40,"#"));
@@ -33,7 +33,7 @@ fwrite($fichero, "\n");
 	fclose($fichero);
 
 };
-
+//Filtramos los datos de espacios, caracteres especiales y barra slash
 function test_input($data) {
   $data = trim($data);
   $data= stripslashes($data);
