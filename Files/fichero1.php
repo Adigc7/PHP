@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $localidad = test_input($_POST["localidad"]);
 
 
-
+//Segun la longitud pedida dividimos con str_pad el tamaño de cada argumento
 $fichero = fopen ("alumnos1.txt","a") or die ("Fichero no creado");
 fwrite($fichero,str_pad($nombre,39));
 fwrite($fichero,str_pad($apellido1,40));
@@ -33,7 +33,7 @@ fwrite($fichero, "\n");
 	fclose($fichero);
 
 };
-
+//Filtramos los caracteres de espacios, caracteres especiales y barra slash
 function test_input($data) {
   $data = trim($data);
   $data= stripslashes($data);
