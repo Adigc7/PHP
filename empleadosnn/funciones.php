@@ -70,7 +70,7 @@ function nuevoDepartamento($conn,$incre, $dpto){
 //Pasamos como atributo la conexión y mediante una select mostramos valores de codigo de departamento y nombre de la tabla departamento.
 //Creamos array asociativo y guardandolo en la variable $arrayAso retornamos el resultado de la función
 function verDepartamento($conn){
-        $stmt = $conn->prepare("SELECT cod_dpto, nombre FROM dpto");
+        $stmt = $conn->prepare("SELECT id_dpto, nombre FROM dpto");
         $stmt->execute();
     
         $arrayAso = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -83,10 +83,10 @@ function verDepartamento($conn){
 function listarEmpleado($conn,$dato){
     $stmt = $conn->prepare("SELECT emple.dni, emple.nombre, emple.salario, emple.fecha_nac
 	FROM emple,dpto,emple_dpto WHERE emple_dpto.fecha_fin IS NULL 
-    AND emple.dni = emple_dpto.dni_emple 
-    AND dpto.cod_dpto=:codDPTO");
+    AND emple.dni = emple_dpto.dni_emple AND dpto.id_dpto=emple_dpto.id_dpto
+    AND dpto.id_dpto=:idDPTO");
 	
-	$stmt -> bindParam(':codDPTO',$dato);
+	$stmt -> bindParam(':idDPTO',$dato);
     $stmt->execute();
 
     $arrayAso = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -141,7 +141,17 @@ function nuevoeEmpleado($conn,$dni,$nombre,$salario,$fecha){
     $stmt->bindParam(':fecha_nac',$fecha);
     $stmt->execute();
 }
-
+/*
+//Insertar empleado en emple_dpto con datos nuevos
+function nuevoEmpleDpto($conn,$dni_emple,$id_dpto,$fecha_inicio){
+    $stmt = $conn->prepare("INSERT INTO EMPLE_DPTO (dni_emple,id_dpto,fecha_inicio)
+    VALUES(:dni_emple,:id_dpto,:fecha_inicio,:fecha_fin);");
+     $stmt->bindParam(':dni_emple',$dni_emple);
+     $stmt->bindParam(':id_dpto',$id_dpto);
+     $stmt->bindParam(':fecha_inicio',$fecha_inicio);
+     $stmt->execute();
+}
+*/
 //Mediante pasar la conexión y los parametros de la tabla emple_dpto creamos nuevo empleado en emple_dpto con insert into
 function nuevoEmpleadoFechaAlta($conn,$dni,$id_dpto,$fecha_alta){
     $stmt = $conn->prepare("INSERT INTO EMPLE_DPTO (dni_emple,id_dpto,fecha_inicio,fecha_fin)

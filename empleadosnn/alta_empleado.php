@@ -1,5 +1,5 @@
 <HTML>
-<HEAD><TITLE>ALTA EMPLEADO</TITLE></HEAD>
+<HEAD><TITLE>ALTA DE EMPLEADO</TITLE></HEAD>
 <style>
 h3{
 	text-align:center;
@@ -63,6 +63,7 @@ else if ($_SERVER["REQUEST_METHOD"]== "POST"){
         $conn=conexion();
         nuevoeEmpleado($conn,$dni,$nombre,$salario,$fecha);
         //nuevoEmpleadoFechaAlta($conn,$dni,$id_dpto,$fecha_alta);
+       // nuevoEmpleDpto($conn,$dni,$id_dpto,$fecha_alta);
         echo "Empleado creado con éxito";
 
     $conn=null;

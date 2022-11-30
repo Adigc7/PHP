@@ -1,5 +1,5 @@
 <HTML>
-<HEAD><TITLE>ALTA DPTO</TITLE></HEAD>
+<HEAD><TITLE>ALTA DE DEPARTAMENTO</TITLE></HEAD>
 <style>
 </style>
 <link rel="stylesheet" href="bootstrap.min.css">

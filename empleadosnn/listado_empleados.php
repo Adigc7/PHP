@@ -16,8 +16,9 @@ DPTO <select name="departamento">
         $conn=conexion();
         $dpto= verDepartamento($conn);
         foreach($dpto as $row) {
-            echo "<option value=".$row["cod_dpto"].">". $row["nombre"]. "</option>";
+            echo "<option value=".$row["id_dpto"].">". $row["nombre"]. "</option>";
         }
+     //   var_dump($dpto);
         $conn = null;
         ?>
     </select>
@@ -35,7 +36,7 @@ else{
     if ($_SERVER["REQUEST_METHOD"]== "POST"){
 		$depart = $_POST["departamento"];
 	}
-    echo $depart;
+    
     $conn=conexion();
     $listaEmpleados=listarEmpleado($conn,$depart);
 
