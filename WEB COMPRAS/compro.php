@@ -15,13 +15,12 @@
 <form name="formu" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <label type="text" name="dni">Añada su DNI: <input name="dni"></label>
     <br><br>
-    <label type="text" name="cantidad">CANTIDAD DE PRODUCTOS: <input name="cantidad"></label>
-    <br>
-    <br>
+<label type="text" name="unidades">Ponga cantidad requerida: <input name="unidades"></label>
+    <br><br>
     LISTA DE PRODUCTOS: <select name="producto">
         <?php
         $conn=conexion();
-        $producto=listarProducto($conn);
+        $producto= verProductosDisponibles($conn);
         foreach($producto as $row) {
             echo "<option value=".$row["id_producto"].">". $row["nombre"]. "</option>";
         }
@@ -41,11 +40,19 @@ else{
     
     if ($_SERVER["REQUEST_METHOD"]== "POST"){
         $dni = $_POST["dni"];
-        $unidades = $_POST["cantidad"];
+        $unidades = $_POST["unidades"];
+        $fecha_compra = date('Y/m/d'); 
+        $unidades= 1; 
     }
     $conn=conexion();
-    comprarProducto($conn,$dni,$producto,$unidades);
+    if(verDniExistente($conn,$dni)==false){
+        echo "ERROR. No se ha dado de alta como cliente";
+        $conn = null;
+    }else{
+    comprarProducto($conn,$dni,$producto,$fecha_compra,$unidades);
     $conn = null;
+    
+}
 
 }
 ?>

@@ -279,22 +279,46 @@ function nuevoCliente($conn,$nif,$nombre,$apellido,$cp,$direccion,$ciudad){
 
 
 //Función sin acabar de la tabla comprar en la que también actuaría la tabla almacena para mostrar solo los unicos productos disponibles
-/*
-function comprarProducto($conn,$dni,$producto,$unidades){
-	$stmt = $conn->prepare("SELECT compro.nif, compro.id_producto, compro.fecha_compra, compro.unidades
-	FROM COMPRO, ALMACENA
-	WHERE compro.id_producto=almacena.id_producto);
 
-	$stmt->execute();
-	
-	$arrayAso = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	$arrayAso = $stmt->fetchAll();
-	
-	return $arrayAso;
+function verProductosDisponibles($conn){
+    $stmt = $conn->prepare("SELECT almacena.id_producto, producto.nombre FROM producto, almacena WHERE producto.id_producto=almacena.id_producto AND almacena.cantidad>0 ");
+    $stmt->execute();
 
+    $arrayAso = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $arrayAso = $stmt->fetchAll();
 
-
-//(NIF, ID_PRODUCTO, FECHA_COMPRA, UNIDADES)
+    return $arrayAso;
 }
-*/
+
+function comprarProducto($conn,$dni,$producto,$fecha_compra,$unidades){
+	$stmt = $conn->prepare("INSERT INTO COMPRA (nif, id_producto, fecha_compra, unidades) VALUES(:nif, :id_producto, :fecha_compra, :unidades);");  
+    
+    $stmt -> bindParam(':nif',$dni);
+    $stmt -> bindParam(':id_producto',$producto);
+    $stmt -> bindParam(':fecha_compra',$fecha_compra);
+    $stmt -> bindParam(':unidades',$unidades);
+    $stmt->execute();
+
+    echo "<br>";
+    echo "El cliente con NIF $dni ha comprado una cantidad de $unidades unidades de $producto con fecha de compra $fecha_compra";
+}
+
+function verDniExistente($conn,$dni){
+try{
+
+	$stmt = $conn->prepare("SELECT * FROM CLIENTE WHERE nif=:dni IS NOT NULL");
+	$stmt -> bindParam(':nif',$dni);
+    $stmt->execute();
+    $arrayAso = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $arrayAso = $stmt->fetchAll();
+
+    return $arrayAso;
+	return true;
+
+} catch (PDOException $e) {
+	echo "<div class='h5' align='center'>CLIENTE CON DNI NO REGISTRADO " . $e -> getMessage() . "</div>";
+	return false;
+}
+}
+
 ?>
